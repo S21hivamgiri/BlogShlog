@@ -1,0 +1,514 @@
+<div class="editor">
+  <div class="top-bar d-flex w-100 px-1 px-md-5">
+    <div class='d-flex toolbar m-1'>
+      <button title="Preview" class='special-button toolbar-button m-0 preview-icon'>
+        <span class="material-icons m-1">
+          preview
+        </span>
+      </button>
+      <button title="HTML Code" class='toolbar-button m-0  d-none d-lg-flex'>
+        <span class="material-icons m-1">
+          code
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0  d-none d-md-flex'>
+        <span class="material-icons">
+          hearing
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          developer_board
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          download
+        </span>
+      </button>
+      <button title="Reset" class='toolbar-button m-0 reset bg-danger'>
+        <span class="material-icons m-1">
+          restart_alt
+        </span>
+      </button>
+    </div>
+    <div class="d-flex toolbar m-1">
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          language
+        </span>
+        <span class="material-icons d-none d-lg-flex">
+          arrow_drop_down
+        </span>
+      </button>
+      <button title="Editor Settings" class='toolbar-button m-0' [matMenuTriggerFor]="setting"
+        aria-label="Editor Setting">
+        <span class="material-icons">
+          settings_suggest
+        </span>
+        <span class="material-icons">
+          arrow_drop_down
+        </span>
+      </button>
+      <mat-menu #setting="matMenu">
+        <button mat-menu-item>
+          <mat-icon>dialpad</mat-icon>
+          <span>Redial</span>
+        </button>
+        <button mat-menu-item disabled>
+          <mat-icon>voicemail</mat-icon>
+          <span>Check voice mail</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>notifications_off</mat-icon>
+          <span>Disable alerts</span>
+        </button>
+      </mat-menu>
+      <button title="Publish" class='toolbar-button special-button p-2'>
+        <span class="d-none d-lg-flex">
+          PUBLISH</span>
+        <span class="material-icons m-1">
+          send
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <mat-form-field class="title-form-field px-1 px-md-5 w-100">
+    <mat-label>Title</mat-label>
+    <input matInput #titleForm maxlength="256" type="text" [(ngModel)]="title" [formControl]="titleFormControl">
+    <button mat-button *ngIf="title" matSuffix mat-icon-button aria-label="Clear" (click)="title=''">
+      <mat-icon>close</mat-icon>
+    </button>
+    <mat-error *ngIf="titleFormControl.hasError('required')">
+      Title is <strong>required</strong>
+    </mat-error>
+    <mat-hint align="start"> <strong>Make Title Catchy and Compact</strong> </mat-hint>
+    <mat-hint align="end">{{titleForm.value.length}} / 256</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field class="tag-chip-list px-1 px-md-5 w-100 mt-3">
+    <mat-label>Tags</mat-label>
+    <mat-chip-grid #chipGrid aria-label="Tag selection" cdkDropList cdkDropListOrientation="horizontal"
+      (cdkDropListDropped)="drop($event)">
+      <mat-chip *ngFor="let tag of tags; index as i" cdkDrag [removable]="removable" (removed)="remove(tag)">
+        # {{tag.name.toLowerCase()}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+      <input [placeholder]="tags.length>=20?'':'New tag...'" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="addOnBlur" [matChipInputFor]="chipGrid" (matChipInputTokenEnd)="add($event)"
+        [attr.disabled]="tags.length>=20?'':null" [formControl]="chipFormControl">
+    </mat-chip-grid>
+    <mat-hint align="start"> <strong>Choose th hashtags to be added with post</strong> </mat-hint>
+    <mat-hint align="end">{{tags.length}}/ 20</mat-hint>
+  </mat-form-field>
+
+  <div class='toolbar-menus d-flex px-1 px-md-5'>
+    <div class="toolbar device d-none d-lg-flex p-0 m-1">
+      <button title="Phone" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          smartphone
+        </span>
+      </button>
+      <button title="Tablet" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          tablet_android
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          desktop_windows
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          tv
+        </span>
+      </button>
+    </div>
+    <div class="toolbar format d-flex p-0 m-1">
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          border_outer
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          border_left
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          border_right
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          border_top
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          border_bottom
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          border_color
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          border_clear
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          line_style
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          line_weight
+        </span>
+      </button>
+    </div>
+    <div class="toolbar multimedia d-flex p-0 m-1">
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          video_camera_back
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          audiotrack
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          add_location_alt
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          insert_drive_file
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          smart_display
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          insert_chart
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          qr_code_2
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          insert_photo
+        </span>
+      </button>
+    </div>
+    <div class="toolbar position d-flex p-0 m-1">
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          format_align_right
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          format_align_left
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          format_align_justify
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          format_align_center
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          align_vertical_center
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          format_indent_increase
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          format_indent_decrease
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          format_line_spacing
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          select_all
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          pivot_table_chart
+        </span>
+      </button>
+    </div>
+    <div class="toolbar insert d-flex p-0 m-1">
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          mode
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          horizontal_rule
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          insert_emoticon
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          insert_link
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          format_quote
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          space_bar
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          date_range
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          more_time
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          other_houses
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          grid_4x4
+        </span>
+      </button>
+    </div>
+    <div class="toolbar edit d-flex p-0 m-1">
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          youtube_searched_for
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          find_replace
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          content_paste
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          content_copy
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          content_cut
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          redo
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          undo
+        </span>
+      </button>
+    </div>
+    <div class="toolbar component d-flex p-0 m-1">
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons">
+          format_shapes
+        </span>
+      </button>
+      <button title="Tablet" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          bookmark_add
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          precision_manufacturing
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          collections_bookmark
+        </span>
+      </button>
+    </div>
+    <div class="toolbar miscellaneous d-flex p-0 m-1">
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          travel_explore
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          calculate
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          square_foot
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons">
+          attach_money
+        </span>
+      </button>
+    </div>
+    <div class="toolbar format d-flex p-0 m-1">
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          highlight
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          format_color_fill
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          format_color_reset
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          format_list_bulleted
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          format_list_numbered
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          spellcheck
+        </span>
+      </button>
+    </div>
+    <div class="toolbar text-format d-flex p-0 m-1">
+      <button title="" class='toolbar-button m-0' (click)='setFormat("bold")'>
+        <span class="material-icons m-1">
+          format_bold
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          format_italic
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          format_underline
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          format_color_text
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          format_clear
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          font_download
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          format_size
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          text_fields
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          strikethrough_s
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          subscript
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          superscript
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          <svg xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960" width="30">
+            <path
+              d="m168-284 148-398h48l149 398h-48l-39-111H254l-39 111h-47Zm101-151h142l-70-196h-2l-70 196Zm393 160q-44 0-70-23.5T566-362q0-42 30.5-68.5T676-457q21 0 41 4t34 12v-20q0-35-19-54t-55-19q-21 0-39 7.5T604-504l-29-25q21-22 45.5-32t56.5-10q57 0 86 28.5t29 85.5v173h-40v-38h-4q-14 23-35.5 35T662-275Zm3-35q37 0 62-27.5t25-68.5q-13-8-31.5-12t-36.5-4q-35 0-55.5 16T608-362q0 24 15.5 38t41.5 14Z" />
+          </svg>
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          title
+        </span>
+      </button>
+      <button title="" class='toolbar-button m-0'>
+        <span class="material-icons m-1">
+          translate
+        </span>
+      </button>
+    </div>
+    <div class='background-editor m-0 m-md-5'>
+      <div id="editor" class='main-editor' contenteditable="true" spellcheck='false' [innerHTML]='presentText'></div>
+    </div>
+    <div class="m-5">&nbsp;</div>
+  </div>
