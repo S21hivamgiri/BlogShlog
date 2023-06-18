@@ -73,36 +73,7 @@
       </button>
     </div>
   </div>
-
-  <mat-form-field class="title-form-field px-1 px-md-5 w-100">
-    <mat-label>Title</mat-label>
-    <input matInput #titleForm maxlength="256" type="text" [(ngModel)]="title" [formControl]="titleFormControl">
-    <button mat-button *ngIf="title" matSuffix mat-icon-button aria-label="Clear" (click)="title=''">
-      <mat-icon>close</mat-icon>
-    </button>
-    <mat-error *ngIf="titleFormControl.hasError('required')">
-      Title is <strong>required</strong>
-    </mat-error>
-    <mat-hint align="start"> <strong>Make Title Catchy and Compact</strong> </mat-hint>
-    <mat-hint align="end">{{titleForm.value.length}} / 256</mat-hint>
-  </mat-form-field>
-
-  <mat-form-field class="tag-chip-list px-1 px-md-5 w-100 mt-3">
-    <mat-label>Tags</mat-label>
-    <mat-chip-grid #chipGrid aria-label="Tag selection" cdkDropList cdkDropListOrientation="horizontal"
-      (cdkDropListDropped)="drop($event)">
-      <mat-chip *ngFor="let tag of tags; index as i" cdkDrag [removable]="removable" (removed)="remove(tag)">
-        # {{tag.name.toLowerCase()}}
-        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-      </mat-chip>
-      <input [placeholder]="tags.length>=20?'':'New tag...'" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-        [matChipInputAddOnBlur]="addOnBlur" [matChipInputFor]="chipGrid" (matChipInputTokenEnd)="add($event)"
-        [attr.disabled]="tags.length>=20?'':null" [formControl]="chipFormControl">
-    </mat-chip-grid>
-    <mat-hint align="start"> <strong>Choose th hashtags to be added with post</strong> </mat-hint>
-    <mat-hint align="end">{{tags.length}}/ 20</mat-hint>
-  </mat-form-field>
-
+  <!-- <app-blog-post-data></app-blog-post-data> -->
   <div class='toolbar-menus d-flex px-1 px-md-5'>
     <div class="toolbar device d-none d-lg-flex p-0 m-1">
       <button title="Phone" class='toolbar-button m-0'>
@@ -432,83 +403,9 @@
         </span>
       </button>
     </div>
-    <div class="toolbar text-format d-flex p-0 m-1">
-      <button title="" class='toolbar-button m-0' (click)='setFormat("bold")'>
-        <span class="material-icons m-1">
-          format_bold
-        </span>
-      </button>
-      <button title="" class='toolbar-button m-0'>
-        <span class="material-icons m-1">
-          format_italic
-        </span>
-      </button>
-      <button title="" class='toolbar-button m-0'>
-        <span class="material-icons m-1">
-          format_underline
-        </span>
-      </button>
-      <button title="" class='toolbar-button m-0'>
-        <span class="material-icons m-1">
-          format_color_text
-        </span>
-      </button>
-      <button title="" class='toolbar-button m-0'>
-        <span class="material-icons m-1">
-          format_clear
-        </span>
-      </button>
-      <button title="" class='toolbar-button m-0'>
-        <span class="material-icons m-1">
-          font_download
-        </span>
-      </button>
-      <button title="" class='toolbar-button m-0'>
-        <span class="material-icons m-1">
-          format_size
-        </span>
-      </button>
-      <button title="" class='toolbar-button m-0'>
-        <span class="material-icons m-1">
-          text_fields
-        </span>
-      </button>
-      <button title="" class='toolbar-button m-0'>
-        <span class="material-icons m-1">
-          strikethrough_s
-        </span>
-      </button>
-      <button title="" class='toolbar-button m-0'>
-        <span class="material-icons m-1">
-          subscript
-        </span>
-      </button>
-      <button title="" class='toolbar-button m-0'>
-        <span class="material-icons m-1">
-          superscript
-        </span>
-      </button>
-      <button title="" class='toolbar-button m-0'>
-        <span class="material-icons m-1">
-          <svg xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960" width="30">
-            <path
-              d="m168-284 148-398h48l149 398h-48l-39-111H254l-39 111h-47Zm101-151h142l-70-196h-2l-70 196Zm393 160q-44 0-70-23.5T566-362q0-42 30.5-68.5T676-457q21 0 41 4t34 12v-20q0-35-19-54t-55-19q-21 0-39 7.5T604-504l-29-25q21-22 45.5-32t56.5-10q57 0 86 28.5t29 85.5v173h-40v-38h-4q-14 23-35.5 35T662-275Zm3-35q37 0 62-27.5t25-68.5q-13-8-31.5-12t-36.5-4q-35 0-55.5 16T608-362q0 24 15.5 38t41.5 14Z" />
-          </svg>
-        </span>
-      </button>
-      <button title="" class='toolbar-button m-0'>
-        <span class="material-icons m-1">
-          title
-        </span>
-      </button>
-      <button title="" class='toolbar-button m-0'>
-        <span class="material-icons m-1">
-          translate
-        </span>
-      </button>
-    </div>
-    <div class='background-editor m-0 m-md-5'>
-      <div id="editor" class='main-editor' contenteditable="true" spellcheck='false' [innerHTML]='presentText'></div>
-    </div>
-    <div class="m-5">&nbsp;</div>
+    <app-text-toolbar (textFormat)="setFormat($event)"></app-text-toolbar>
   </div>
+  <div class='background-editor m-0 m-md-5'>
+    <div id="editor" class='main-editor' contenteditable="true" spellcheck='false' [innerHTML]='presentText'></div>
+  </div>
+  <div class="m-5">&nbsp;</div>

@@ -1,29 +1,6 @@
 @import './../../styles.scss';
 
 .editor {
-  .toolbar {
-    border: 1px solid black;
-    border-radius: 10px;
-
-    .toolbar-button {
-      align-items: center;
-      background-color: white;
-      border: 0;
-      border-radius: 10px;
-      display: flex;
-      font-size: 16px;
-
-      &.special-button {
-        background-color: $blog-shlog-theme-color;
-        font-weight: 600;
-      }
-
-      &:focus {
-        outline: 0;
-      }
-    }
-  }
-
   .top-bar {
     justify-content: space-between;
   }
@@ -31,7 +8,6 @@
   .toolbar-menus {
     flex-wrap: wrap;
   }
-
 
   .reset {
     border-radius: 40px;
@@ -47,11 +23,6 @@
     &:focus {
       outline: 0;
     }
-  }
-
-  .title-form-field,
-  .tag-chip-list {
-    font-size: 20px;
   }
 
   @media (max-width: 1200px) {
@@ -103,8 +74,26 @@
     }
   }
 
-  .mdc-evolution-chip-set .mdc-evolution-chip {
-    margin-bottom: 4px;
-    margin-top: 16px;
+  ::ng-deep .toolbar {
+    border: 1px solid black;
+    border-radius: 10px;
+
+    .toolbar-button {
+      align-items: center;
+      background-color: white;
+      border: 0;
+      border-radius: 10px;
+      display: flex;
+      font-size: 16px;
+
+      &.special-button {
+        background-color: $blog-shlog-theme-color;
+        font-weight: 600;
+      }
+
+      &:focus {
+        outline: 0;
+      }
+    }
   }
 }

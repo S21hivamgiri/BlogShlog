@@ -1,0 +1,30 @@
+<div class="blog-post-data">
+    <mat-form-field class="title-form-field px-1 px-md-5 w-100">
+        <mat-label>Title</mat-label>
+        <input matInput #titleForm maxlength="256" type="text" [formControl]="titleFormControl">
+        <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="titleFormControl.patchValue('')">
+            <mat-icon>close</mat-icon>
+        </button>
+        <mat-error *ngIf="titleFormControl.hasError('required')">
+            Title is <strong>required</strong>
+        </mat-error>
+        <mat-hint align="start"> <strong>Make Title Catchy and Compact</strong> </mat-hint>
+        <mat-hint align="end">{{titleForm.value.length}} / 256</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field class="tag-chip-list px-1 px-md-5 w-100 mt-3">
+        <mat-label>Tags</mat-label>
+        <mat-chip-grid #chipGrid aria-label="Tag selection" cdkDropList cdkDropListOrientation="horizontal"
+            (cdkDropListDropped)="drop($event)">
+            <mat-chip *ngFor="let tag of tags; index as i" cdkDrag [removable]="removable" (removed)="remove(tag)">
+                # {{tag.name.toLowerCase()}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input [placeholder]="tags.length>=20?'':'New tag...'" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur" [matChipInputFor]="chipGrid" (matChipInputTokenEnd)="add($event)"
+                [attr.disabled]="tags.length>=20?'':null" [formControl]="chipFormControl">
+        </mat-chip-grid>
+        <mat-hint align="start"> <strong>Choose th hashtags to be added with post</strong> </mat-hint>
+        <mat-hint align="end">{{tags.length}}/ 20</mat-hint>
+    </mat-form-field>
+</div>

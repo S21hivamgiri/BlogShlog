@@ -17,20 +17,23 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { PortalModule } from '@angular/cdk/portal';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TextToolbarComponent } from './toolbar/text-toolbar/text-toolbar.component';
+import { BlogPostDataComponent } from './blog-post-data/blog-post-data.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     TextEditorComponent,
-    TextToolbarComponent
+    TextToolbarComponent,
+    BlogPostDataComponent
   ],
   imports: [
     ScrollingModule, PortalModule, DragDropModule, ClipboardModule,
     BrowserModule, MatChipsModule,
     MatDividerModule,
-    MatExpansionModule,
+    MatExpansionModule, MatTooltipModule,
     MatGridListModule,
     MatIconModule,
     MatFormFieldModule, BrowserAnimationsModule,

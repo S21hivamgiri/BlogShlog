@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-text-toolbar',
@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./text-toolbar.component.scss']
 })
 export class TextToolbarComponent {
-
+  @Output() textFormat = new EventEmitter<string>();
+  setTextFormat(event: Event) {
+    this.textFormat.emit((event.target as HTMLElement).parentElement?.dataset.action); 
+  }
 }
